@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.whatisjava.training.animation.DynamicAnimationActivity
 import com.whatisjava.training.databinding.ActivityMainBinding
+import com.whatisjava.training.http.HttpActivity
 import com.whatisjava.training.imageloader.ImageLoadActivity
 import com.whatisjava.training.palette.PaletteActivity
 import com.whatisjava.training.printer.PrinterActivity
@@ -25,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         "透明状态栏",
         "弹簧动画",
         "获取图片主色调",
-        "文件存储"
+        "文件存储",
+        "Retrofit+LiveData"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +64,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 6 -> {
                     startActivity(Intent(this@MainActivity, FileStorageActivity::class.java))
+                }
+                7 -> {
+                    startActivity(Intent(this@MainActivity, HttpActivity::class.java))
                 }
                 else -> {
 
