@@ -2,6 +2,7 @@ package com.whatisjava.training.http
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.whatisjava.training.databinding.ActivityHttpBinding
 import com.whatisjava.training.http.base.BaseActivity
 import com.whatisjava.training.http.viewmodel.DemoViewModel
@@ -10,7 +11,7 @@ class HttpActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHttpBinding
 
-    private lateinit var demoViewModel: DemoViewModel
+    private val demoViewModel: DemoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +19,6 @@ class HttpActivity : BaseActivity() {
         val view = binding.root
         setContentView(view)
 
-        demoViewModel = getViewModel(DemoViewModel::class.java)
         demoViewModel.msgLiveData.observe(this, {
             binding.textView.text = it.toString()
         })
@@ -27,7 +27,7 @@ class HttpActivity : BaseActivity() {
         })
 
         binding.loginButton.setOnClickListener {
-            demoViewModel.sendVerifyCode("+86", "18610122319", "LOGIN")
+            demoViewModel.sendVerifyCode("+86", "18610122319", "LOGIN1")
         }
 
     }
