@@ -1,6 +1,7 @@
 package com.whatisjava.training.http
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.whatisjava.training.databinding.ActivityHttpBinding
@@ -22,12 +23,19 @@ class HttpActivity : BaseActivity() {
         demoViewModel.msgLiveData.observe(this, {
             binding.textView.text = it.toString()
         })
+        demoViewModel.loadingLiveData.observe(this, {
+            if (it) {
+                Log.d("loading", "begin")
+            } else {
+                Log.d("loading", "end")
+            }
+        })
         demoViewModel.errorLiveData.observe(this, {
-            Toast.makeText(this@HttpActivity, "${it.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@HttpActivity, it.toString(), Toast.LENGTH_SHORT).show()
         })
 
         binding.loginButton.setOnClickListener {
-            demoViewModel.sendVerifyCode("+86", "18610122319", "LOGIN1")
+            demoViewModel.sendVerifyCode("+86", "18610122319", "LOGIN")
         }
 
     }

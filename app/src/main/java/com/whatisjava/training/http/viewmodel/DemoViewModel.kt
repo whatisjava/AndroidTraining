@@ -1,7 +1,8 @@
 package com.whatisjava.training.http.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.whatisjava.training.http.ResState
+import com.whatisjava.training.http.RespState
+import com.whatisjava.training.http.api.ApiPathName
 import com.whatisjava.training.http.base.BaseViewModel
 import com.whatisjava.training.http.model.Msg
 import com.whatisjava.training.http.repository.DemoRepository
@@ -19,14 +20,15 @@ class DemoViewModel : BaseViewModel() {
     ) {
         launch(
             {
-                val state = mRepository.sendVerifyCode(areaCode, mobile, type)
-                if (state is ResState.Success) {
-                    msgLiveData.postValue(state.data!!)
-                } else if (state is ResState.Error) {
-                    errorLiveData.postValue(state.exception)
+                val respState = mRepository.sendVerifyCode(areaCode, mobile, type)
+                if (respState is RespState.Success) {
+                    msgLiveData.postValue(respState.data!!)
+                } else if (respState is RespState.Error) {
+                    errorLiveData.postValue(respState.exception)
                 }
             },
             {
+                it.pathName = ApiPathName.SEND_VERIFY_CODE
                 errorLiveData.postValue(it)
             },
             {

@@ -7,39 +7,39 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val TAG = "RetrofitManager"
+private const val TAG = "okhttp"
 
 object RetrofitManager {
 
+    private const val timeout = 10L
+
     private val mOkClient = OkHttpClient.Builder()
-        .callTimeout(10, TimeUnit.SECONDS)
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
-        .writeTimeout(10, TimeUnit.SECONDS)
+        .callTimeout(timeout, TimeUnit.SECONDS)
+        .connectTimeout(timeout, TimeUnit.SECONDS)
+        .readTimeout(timeout, TimeUnit.SECONDS)
+        .writeTimeout(timeout, TimeUnit.SECONDS)
         .retryOnConnectionFailure(true)
         .followRedirects(false)
         .addInterceptor(HttpLoggingInterceptor { message ->
-            Log.d(TAG, "log: $message")
+            Log.d(TAG, "$message")
         }.setLevel(HttpLoggingInterceptor.Level.BODY)).build()
 
     private var mRetrofit: Retrofit? = null
 
-
-    fun initRetrofit(): RetrofitManager {
+    fun initRetrofit(url: String = "https://test.blcclb.com"): RetrofitManager {
         mRetrofit = Retrofit.Builder()
-            .baseUrl("https://test.blcclb.com")
+            .baseUrl(url)
             .client(mOkClient)
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         return this
     }
 
     fun <T> getService(serviceClass: Class<T>): T {
-        if (mRetrofit == null) {
-            throw UninitializedPropertyAccessException("Retrofit必须初始化")
-        } else {
+        if (mRetrofit != null) {
             return mRetrofit!!.create(serviceClass)
+        } else {
+            throw UninitializedPropertyAccessException("Retrofit必须先初始化")
         }
     }
 }
