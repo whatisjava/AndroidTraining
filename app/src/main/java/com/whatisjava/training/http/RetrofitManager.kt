@@ -13,7 +13,7 @@ object RetrofitManager {
 
     private const val timeout = 10L
 
-    private val mOkClient = OkHttpClient.Builder()
+    private val mOkClientBuilder = OkHttpClient.Builder()
         .callTimeout(timeout, TimeUnit.SECONDS)
         .connectTimeout(timeout, TimeUnit.SECONDS)
         .readTimeout(timeout, TimeUnit.SECONDS)
@@ -22,11 +22,13 @@ object RetrofitManager {
         .followRedirects(false)
         .addInterceptor(HttpLoggingInterceptor { message ->
             Log.d(TAG, "$message")
-        }.setLevel(HttpLoggingInterceptor.Level.BODY)).build()
+        }.setLevel(HttpLoggingInterceptor.Level.BODY))
+
+    private val mOkClient = mOkClientBuilder.build()
 
     private var mRetrofit: Retrofit? = null
 
-    fun initRetrofit(url: String = "https://test.blcclb.com"): RetrofitManager {
+    fun buildRetrofit(url: String = "https://test.blcclb.com"): RetrofitManager {
         mRetrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(mOkClient)

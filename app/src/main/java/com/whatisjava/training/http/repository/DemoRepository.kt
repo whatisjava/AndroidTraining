@@ -8,7 +8,7 @@ import com.whatisjava.training.http.model.Msg
 
 class DemoRepository : BaseRepository() {
 
-    private var apiService: ApiService = RetrofitManager.initRetrofit().getService(ApiService::class.java)
+    private var apiService: ApiService = RetrofitManager.buildRetrofit().getService(ApiService::class.java)
 
     suspend fun sendVerifyCode(
         areaCode: String,

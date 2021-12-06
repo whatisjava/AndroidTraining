@@ -1,8 +1,7 @@
 package com.whatisjava.training.http.model
 
 data class ApiResp<T>(
-    var code: Int? = null,
-    var msg: String? = null,
-    var data: T? = null,
-    var action: Action? = null,
+    val code: Int? = null,
+    val msg: String? = null,
+    val data: T? = null,
 )

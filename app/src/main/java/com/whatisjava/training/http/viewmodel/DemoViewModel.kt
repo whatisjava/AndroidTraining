@@ -24,6 +24,7 @@ class DemoViewModel : BaseViewModel() {
                 if (respState is RespState.Success) {
                     msgLiveData.postValue(respState.data!!)
                 } else if (respState is RespState.Error) {
+                    respState.exception.pathName = ApiPathName.SEND_VERIFY_CODE
                     errorLiveData.postValue(respState.exception)
                 }
             },
