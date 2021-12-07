@@ -44,7 +44,8 @@ open class BaseViewModel : ViewModel() {
                             }
                             else -> {
                                 1000
-                            }                            }
+                            }
+                        }
                     }
                     is JsonSyntaxException -> {
                         2000
