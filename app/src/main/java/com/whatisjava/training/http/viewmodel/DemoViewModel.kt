@@ -31,9 +31,6 @@ class DemoViewModel : BaseViewModel() {
             {
                 it.pathName = ApiPathName.SEND_VERIFY_CODE
                 errorLiveData.postValue(it)
-            },
-            {
-                loadingLiveData.postValue(false)
             }
         )
     }

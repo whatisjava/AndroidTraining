@@ -22,8 +22,7 @@ open class BaseViewModel : ViewModel() {
 
     fun launch(
         block: suspend () -> Unit,
-        error: suspend (BaseException) -> Unit,
-        complete: suspend () -> Unit
+        error: suspend (BaseException) -> Unit
     ) {
         loadingLiveData.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
@@ -56,7 +55,7 @@ open class BaseViewModel : ViewModel() {
                 }
                 error(BaseException(errorCode, e.message))
             } finally {
-                complete()
+                loadingLiveData.postValue(false)
             }
         }
     }
