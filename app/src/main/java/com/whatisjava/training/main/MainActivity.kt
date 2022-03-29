@@ -12,6 +12,7 @@ import com.whatisjava.training.palette.PaletteActivity
 import com.whatisjava.training.printer.PrinterActivity
 import com.whatisjava.training.recyclerview.GridLayoutActivity
 import com.whatisjava.training.storage.FileStorageActivity
+import com.whatisjava.training.textview.TextViewActivity
 import com.whatisjava.training.translucent.TranslucentActivity
 
 
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         "弹簧动画",
         "获取图片主色调",
         "文件存储",
-        "Retrofit+LiveData"
+        "Retrofit+LiveData",
+        "字重设置",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +69,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 7 -> {
                     startActivity(Intent(this@MainActivity, HttpActivity::class.java))
+                }
+                8 -> {
+                    startActivity(Intent(this@MainActivity, TextViewActivity::class.java))
                 }
                 else -> {
 

@@ -28,7 +28,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".http.HttpActivity"
+        <activity
+            android:name=".textview.TextViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".http.HttpActivity"
             android:exported="false" />
         <activity android:name=".storage.FileStorageActivity" />
         <activity android:name=".palette.PaletteActivity" />
