@@ -2,8 +2,7 @@ package com.whatisjava.training.textview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.whatisjava.training.R
-import com.whatisjava.training.databinding.ActivityFileStorageBinding
+import com.whatisjava.training.databinding.ActivityTextViewBinding
 
 class TextViewActivity : AppCompatActivity() {
 

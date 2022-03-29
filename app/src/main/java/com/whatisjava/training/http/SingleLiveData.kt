@@ -11,11 +11,11 @@ class SingleLiveData<T>: MutableLiveData<T>() {
     private val mPending = AtomicBoolean(false)
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, {
-            if (mPending.compareAndSet(true, false)){
+        super.observe(owner) {
+            if (mPending.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }
-        })
+        }
     }
 
     @MainThread

@@ -20,19 +20,19 @@ class HttpActivity : BaseActivity() {
         val view = binding.root
         setContentView(view)
 
-        demoViewModel.msgLiveData.observe(this, {
+        demoViewModel.msgLiveData.observe(this) {
             binding.textView.text = it.toString()
-        })
-        demoViewModel.loadingLiveData.observe(this, {
+        }
+        demoViewModel.loadingLiveData.observe(this) {
             if (it) {
                 Log.d("loading", "begin")
             } else {
                 Log.d("loading", "end")
             }
-        })
-        demoViewModel.errorLiveData.observe(this, {
+        }
+        demoViewModel.errorLiveData.observe(this) {
             Toast.makeText(this@HttpActivity, it.toString(), Toast.LENGTH_SHORT).show()
-        })
+        }
 
         binding.loginButton.setOnClickListener {
             demoViewModel.sendVerifyCode("+86", "18610122319", "LOGIN")
