@@ -29,6 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".room.RoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".textview.TextViewActivity"
             android:exported="false" />
         <activity

@@ -94,6 +94,8 @@ dependencies {
 
     //===============================UI控件相关===============================
 
+    // 高斯模糊库 (https://github.com/wasabeef/Blurry)
+    implementation "jp.wasabeef:blurry:4.0.1"
 
 //    implementation "biz.laenger.android:vpbs:0.0.6"
 

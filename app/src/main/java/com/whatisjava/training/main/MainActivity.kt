@@ -11,6 +11,7 @@ import com.whatisjava.training.imageloader.ImageLoadActivity
 import com.whatisjava.training.palette.PaletteActivity
 import com.whatisjava.training.printer.PrinterActivity
 import com.whatisjava.training.recyclerview.GridLayoutActivity
+import com.whatisjava.training.room.RoomActivity
 import com.whatisjava.training.storage.FileStorageActivity
 import com.whatisjava.training.textview.TextViewActivity
 import com.whatisjava.training.translucent.TranslucentActivity
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         "文件存储",
         "Retrofit+LiveData",
         "字重设置",
+        "Jetpack Room",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +74,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 8 -> {
                     startActivity(Intent(this@MainActivity, TextViewActivity::class.java))
+                }
+                8 -> {
+                    startActivity(Intent(this@MainActivity, RoomActivity::class.java))
                 }
                 else -> {
 
