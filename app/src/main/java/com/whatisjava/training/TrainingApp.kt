@@ -7,7 +7,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class TrainingApp : Application() {
+class TrainingApp : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
@@ -15,7 +15,10 @@ class TrainingApp : Application() {
         Fresco.initialize(this)
     }
 
-//    override fun newImageLoader(): ImageLoader {
-//
-//    }
+    override fun newImageLoader(): ImageLoader {
+        return ImageLoader.Builder(this)
+            .crossfade(true)
+            .build()
+    }
+
 }

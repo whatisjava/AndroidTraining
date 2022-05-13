@@ -44,6 +44,8 @@ class ImageLoadActivity : AppCompatActivity() {
             .data(imageUrl)
             .crossfade(true)
             .crossfade(1000)
+            .placeholder(R.drawable.bg_default_image)
+            .error(R.drawable.bg_default_image)
             .target(binding.imageView1)
             .transformations(RoundedCornersTransformation(8F, 8f, 8f, 8f))
             .build()
@@ -56,6 +58,7 @@ class ImageLoadActivity : AppCompatActivity() {
 //        binding.imageView1.load(imageUrl) {
 //            crossfade(true)
 //            placeholder(R.drawable.bg_default_image)
+//            error(R.drawable.bg_default_image)
 //            transformations()
 //        }
 
