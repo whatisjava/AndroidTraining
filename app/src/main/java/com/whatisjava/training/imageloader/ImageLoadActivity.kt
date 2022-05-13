@@ -1,6 +1,5 @@
 package com.whatisjava.training.imageloader
 
-import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,13 +8,8 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.decode.SvgDecoder
 import coil.decode.VideoFrameDecoder
-import coil.imageLoader
-import coil.load
 import coil.request.ImageRequest
-import coil.request.videoFrameMillis
-import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
-import com.squareup.picasso.Picasso
 import com.whatisjava.training.R
 import com.whatisjava.training.databinding.ActivityImageLoadBinding
 
@@ -36,9 +30,21 @@ class ImageLoadActivity : AppCompatActivity() {
 
         binding.simpleDraweeView.setImageURI(imageUrl)
 
-        val picasso = Picasso.get()
-        picasso.setIndicatorsEnabled(true)
-        picasso.load(imageUrl).placeholder(R.drawable.bg_default_image).error(R.drawable.bg_default_image).into(binding.imageView)
+        ImageLoaderUtil.instance.loadImage(this, imageUrl, R.drawable.bg_default_image, R.drawable.bg_default_image, binding.imageView)
+        ImageLoaderUtil.instance.loadImage(this, imageUrl, R.drawable.bg_default_image, R.drawable.bg_default_image, binding.imageView)
+        ImageLoaderUtil.instance.loadImage(this, imageUrl, R.drawable.bg_default_image, R.drawable.bg_default_image, binding.imageView)
+
+        val imageLoader = ImageLoader.Builder(this)
+            .components {
+                if (SDK_INT >= 28) {
+                    add(ImageDecoderDecoder.Factory())
+                } else {
+                    add(GifDecoder.Factory())
+                }
+                add(SvgDecoder.Factory())
+                add(VideoFrameDecoder.Factory())
+            }
+            .build()
 
         val request = ImageRequest.Builder(this)
             .data(imageUrl)
@@ -53,6 +59,7 @@ class ImageLoadActivity : AppCompatActivity() {
         // Cancel the request.
 //        disposable.dispose()
 
+        // execute需在携程中执行
 //        val result = imageLoader.execute(request)
 
 //        binding.imageView1.load(imageUrl) {
@@ -61,18 +68,6 @@ class ImageLoadActivity : AppCompatActivity() {
 //            error(R.drawable.bg_default_image)
 //            transformations()
 //        }
-
-        val imageLoader = ImageLoader.Builder(this)
-            .components {
-                if (SDK_INT >= 28) {
-                    add(ImageDecoderDecoder.Factory())
-                } else {
-                    add(GifDecoder.Factory())
-                }
-                add(SvgDecoder.Factory())
-                add(VideoFrameDecoder.Factory())
-            }
-            .build()
 
         val gifRequest = ImageRequest.Builder(this)
             .data(R.drawable.success)
@@ -85,12 +80,6 @@ class ImageLoadActivity : AppCompatActivity() {
             .target(binding.imageView3)
             .build()
         imageLoader.enqueue(svgRequest)
-
-
-
-
-
-
 
 
 //        Blurry.with(this)
