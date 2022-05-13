@@ -79,11 +79,27 @@ dependencies {
     // 支持 WebP 静态图，需要添加
     implementation 'com.facebook.fresco:webpsupport:2.6.0'
 
-    implementation ("com.github.bumptech.glide:glide:4.13.1") {
-        exclude group: "com.android.support"
-    }
+    implementation ("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+//            {
+//        exclude group: "com.android.support"
+//    }
+    implementation("jp.wasabeef:glide-transformations:4.3.0")
+    // If you want to use the GPU Filters
+    implementation("jp.co.cyberagent.android:gpuimage:2.1.0")
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Coil(Coroutine Image Loader)
+    implementation("io.coil-kt:coil:2.0.0")
+//    implementation("io.coil-kt:coil-base:2.0.0")
+//    implementation("io.coil-kt:coil-compose:2.0.0")
+//    implementation("io.coil-kt:coil-compose-base:2.0.0")
+    implementation("io.coil-kt:coil-gif:2.0.0")
+    implementation("io.coil-kt:coil-svg:2.0.0")
+    implementation("io.coil-kt:coil-video:2.0.0")
+    implementation("io.coil-kt:coil-bom:2.0.0")
+
     //========================================================================
 
     //===============================依赖注入框架===============================
@@ -96,6 +112,8 @@ dependencies {
 
     // 高斯模糊库 (https://github.com/wasabeef/Blurry)
     implementation "jp.wasabeef:blurry:4.0.1"
+
+    implementation("com.makeramen:roundedimageview:2.3.0")
 
 //    implementation "biz.laenger.android:vpbs:0.0.6"
 
