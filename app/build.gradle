@@ -104,6 +104,17 @@ dependencies {
     implementation("io.coil-kt:coil-video:2.0.0")
     implementation("io.coil-kt:coil-bom:2.0.0")
 
+    // PictureSelector 基础 (必须)
+    implementation 'io.github.lucksiege:pictureselector:v3.0.9'
+
+    // 图片压缩 (按需引入)
+    implementation 'io.github.lucksiege:compress:v3.0.9'
+
+    // 图片裁剪 (按需引入)
+    implementation 'io.github.lucksiege:ucrop:v3.0.9'
+
+    // 自定义相机 (按需引入)
+    implementation 'io.github.lucksiege:camerax:v3.0.9'
     //========================================================================
 
     //===============================依赖注入框架===============================

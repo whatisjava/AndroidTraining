@@ -8,6 +8,7 @@ import com.whatisjava.training.animation.DynamicAnimationActivity
 import com.whatisjava.training.databinding.ActivityMainBinding
 import com.whatisjava.training.http.HttpActivity
 import com.whatisjava.training.imageloader.ImageLoadActivity
+import com.whatisjava.training.mediaselect.MediaSelectActivity
 import com.whatisjava.training.palette.PaletteActivity
 import com.whatisjava.training.printer.PrinterActivity
 import com.whatisjava.training.recyclerview.GridLayoutActivity
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         "Retrofit+LiveData",
         "字重设置",
         "Jetpack Room",
+        "多媒体选择",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,8 +77,11 @@ class MainActivity : AppCompatActivity() {
                 8 -> {
                     startActivity(Intent(this@MainActivity, TextViewActivity::class.java))
                 }
-                8 -> {
+                9 -> {
                     startActivity(Intent(this@MainActivity, RoomActivity::class.java))
+                }
+                10 -> {
+                    startActivity(Intent(this@MainActivity, MediaSelectActivity::class.java))
                 }
                 else -> {
 
