@@ -45,6 +45,9 @@ object MediaSelectUtil {
         context: Context,
         selectMimeType: Int,
         selectionMode: Int,
+        crop: Boolean? = null,
+        aspectRatioX: Float? = null,
+        aspectRatioY: Float? = null,
         selectedData: List<LocalMedia>? = null,
         maxSelectNum: Int? = null,
         minSelectNum: Int? = null,
@@ -59,12 +62,17 @@ object MediaSelectUtil {
             .setLanguage(LanguageConfig.SYSTEM_LANGUAGE) // 设置相册语言
             .setImageEngine(GlideEngine.createGlideEngine()) // 设置相册图片加载引擎
             .setCompressEngine(ImageFileCompressEngine()) // 设置相册压缩引擎
-            .setCropEngine(ImageFileCropEngine()) // 设置相册裁剪引擎
+            .setCropEngine(if (crop == true) ImageFileCropEngine(aspectRatioX ?: -1F, aspectRatioY ?: -1F) else null) // 设置相册裁剪引擎
             .setSandboxFileEngine(MeSandboxFileEngine()) // 设置相册沙盒目录拷贝引擎
 //            .setExtendLoaderEngine() // 设置相册数据源加载引擎
 //            .setCameraInterceptListener() // 拦截相机事件，实现自定义相机
 //            .setPermissionsInterceptListener() // 拦截相册权限处理事件，实现自定义权限
-            .setEditMediaInterceptListener(MeOnMediaEditInterceptListener(getSandboxPath(context), buildOptions(context))) // 拦截资源编辑事件，实现自定义编辑
+            .setEditMediaInterceptListener(
+                MeOnMediaEditInterceptListener(
+                    getSandboxPath(context),
+                    buildOptions(context, aspectRatioX ?: -1F, aspectRatioY ?: -1F)
+                )
+            ) // 拦截资源编辑事件，实现自定义编辑
             .setSelectLimitTipsListener(MeOnSelectLimitTipsListener()) // 拦截选择限制事件，可实现自定义提示
             .setVideoThumbnailListener(MeOnVideoThumbnailEventListener(getVideoThumbnailDir(context)))
 //            .setSelectFilterListener() // 拦截不支持的选择项
@@ -89,40 +97,37 @@ object MediaSelectUtil {
 //            .setSelectMinDurationSecond() // 选择最小时长视频或音频
             .setVideoQuality(VideoQuality.VIDEO_QUALITY_HIGH) // 系统相机录制视频质量
             .isQuickCapture(true) // 使用系统摄像机录制后，是否支持使用系统播放器立即播放视频
-//            .isPreviewAudio() // 是否支持音频预览
             .isPreviewImage(true) // 是否支持预览图片
             .isPreviewVideo(true) // 是否支持预览视频
             .isPreviewFullScreenMode(true) // 预览点击全屏效果
             .isEmptyResultReturn(true) // 支持未选择返回
             .isWithSelectVideoImage(true) // 是否支持视频图片同选
+//            .setOfAllCameraType() // isWithSelectVideoImage模式下相机优先使用权
             .isSelectZoomAnim(true) // 选择缩略图缩放效果
             .isOpenClickSound(false) // 是否开启点击音效
-            .isCameraAroundState(false) // 是否开启前置摄像头；系统相机 只支持部分机型
+            .isCameraAroundState(true) // 是否开启前置摄像头；系统相机 只支持部分机型
             .isCameraRotateImage(true) // 拍照是否纠正旋转图片
             .isGif(true) // 是否显示gif文件
             .isWebp(true) // 是否显示webp文件
             .isBmp(true) // 是否显示bmp文件
             .isPreviewFullScreenMode(true) // 预览图片自动放大充满屏幕
-//            .setOfAllCameraType() // isWithSelectVideoImage模式下相机优先使用权
             .isMaxSelectEnabledMask(true) // 达到最大选择数是否开启禁选蒙层
             .isSyncCover(false) // isPageModel模式下是否强制同步封面，默认false
             .isAutomaticTitleRecyclerTop(true) // 点击相册标题是否快速回到第一项
             .isFastSlidingSelect(true) // 快速滑动选择
-            .isDirectReturnSingle(false) // 单选时是否立即返回
+            .isDirectReturnSingle(true) // 单选时是否立即返回
             .setCameraImageFormat(PictureMimeType.JPEG) // 拍照图片输出格式
             .setCameraImageFormatForQ(PictureMimeType.MIME_TYPE_IMAGE) // 拍照图片输出格式，Android Q以上
             .setCameraVideoFormat(PictureMimeType.MP4) // 拍照视频输出格式
             .setCameraVideoFormatForQ(PictureMimeType.MIME_TYPE_VIDEO) // 拍照视频输出格式，Android Q以上
             .setOutputCameraDir(getSandboxCameraOutputPath(context)) // 使用相机输出路径
-//            .setOutputAudioDir(getSandboxCameraOutputPath(context)) // 使用录音输出路径
 //            .setOutputCameraImageFileName("luck.jpeg") // 图片输出文件名
 //            .setOutputCameraVideoFileName("luck.mp4") // 视频输出文件名
-//            .setOutputAudioFileName() // 录音输出文件名
 //            .setQuerySandboxDir() // 查询指定目录下的资源
 //            .isOnlyObtainSandboxDir() // 是否只查询指定目录下的资源
 //            .setFilterMaxFileSize(1 * 1024 * 1024 + 1) // 过滤最大文件
 //            .setFilterMinFileSize(1) // 过滤最小文件
-            .setSelectMaxFileSize(1 * 1024 * 1024) // 最大可选文件大小
+            .setSelectMaxFileSize(1024 * 1024 * 1024) // 最大可选文件大小
             .setSelectMinFileSize(2) // 最小可选文件大小
 //            .setQueryOnlyMimeType(PictureMimeType.JPEG, PictureMimeType.JPG, PictureMimeType.PNG, PictureMimeType.WEBP, PictureMimeType.GIF) // 查询指定文件类型
             .setSkipCropMimeType(PictureMimeType.GIF, PictureMimeType.ofGIF(), PictureMimeType.WEBP, PictureMimeType.ofWEBP()) // 跳过不需要裁剪的类型
@@ -163,15 +168,11 @@ object MediaSelectUtil {
             }.setCompressListener(object : OnNewCompressListener {
                 override fun onStart() {}
                 override fun onSuccess(source: String, compressFile: File) {
-                    if (call != null) {
-                        call.onCallback(source, compressFile.absolutePath)
-                    }
+                    call.onCallback(source, compressFile.absolutePath)
                 }
 
                 override fun onError(source: String, e: Throwable) {
-                    if (call != null) {
-                        call.onCallback(source, null)
-                    }
+                    call.onCallback(source, null)
                 }
             }).launch()
         }
@@ -205,26 +206,23 @@ object MediaSelectUtil {
         return customFile.absolutePath + File.separator
     }
 
-    private fun getNotSupportCrop(): Array<String> = arrayOf(PictureMimeType.ofGIF(), PictureMimeType.ofWEBP())
-
-    private var aspect_ratio_x = -1
-    private var aspect_ratio_y = -1
+    private fun getNotSupportCrop(): Array<String> = arrayOf(PictureMimeType.ofGIF(), PictureMimeType.GIF, PictureMimeType.ofWEBP(), PictureMimeType.WEBP)
 
     /**
      * 配制UCrop，可根据需求自我扩展
      *
      * @return
      */
-    private fun buildOptions(context: Context): UCrop.Options {
+    private fun buildOptions(context: Context, aspectRatioX: Float, aspectRatioY: Float): UCrop.Options {
         val options = UCrop.Options()
         options.setHideBottomControls(false)
         options.setFreeStyleCropEnabled(true)
         options.setShowCropFrame(true)
         options.setShowCropGrid(true)
-        options.setCircleDimmedLayer(true)
-        options.withAspectRatio(aspect_ratio_x.toFloat(), aspect_ratio_y.toFloat())
+        options.setCircleDimmedLayer(false)
+        options.withAspectRatio(aspectRatioX, aspectRatioY)
         options.setCropOutputPathDir(getSandboxPath(context))
-        options.isCropDragSmoothToCenter(false)
+        options.isCropDragSmoothToCenter(true)
         options.isUseCustomLoaderBitmap(false)
         options.setSkipCropMimeType(*getNotSupportCrop())
         options.isForbidCropGifWebp(true)
@@ -242,7 +240,7 @@ object MediaSelectUtil {
                 options.setStatusBarColor(ContextCompat.getColor(context, R.color.ps_color_grey))
                 options.setToolbarColor(ContextCompat.getColor(context, R.color.ps_color_grey))
             }
-            val titleBarStyle: TitleBarStyle = selectorStyle.getTitleBarStyle()
+            val titleBarStyle: TitleBarStyle = selectorStyle.titleBarStyle
             if (StyleUtils.checkStyleValidity(titleBarStyle.titleTextColor)) {
                 options.setToolbarWidgetColor(titleBarStyle.titleTextColor)
             } else {
@@ -259,9 +257,9 @@ object MediaSelectUtil {
     /**
      * 自定义裁剪
      */
-    private class ImageFileCropEngine : CropFileEngine {
+    private class ImageFileCropEngine(val aspectRatioX: Float, val aspectRatioY: Float) : CropFileEngine {
         override fun onStartCrop(fragment: Fragment, srcUri: Uri, destinationUri: Uri, dataSource: java.util.ArrayList<String>, requestCode: Int) {
-            val options: UCrop.Options = buildOptions(fragment.requireContext())
+            val options: UCrop.Options = buildOptions(fragment.requireContext(), aspectRatioX, aspectRatioY)
             val uCrop = UCrop.of(srcUri, destinationUri, dataSource)
             uCrop.withOptions(options)
             uCrop.setImageEngine(object : UCropImageEngine {

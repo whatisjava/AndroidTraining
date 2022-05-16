@@ -16,9 +16,9 @@ import com.squareup.picasso.Picasso
 import com.whatisjava.training.R
 import java.io.File
 
-class ImageLoaderUtil private constructor(private val imageLoadStrategy: (Context, Any, Int, Int?, ImageView) -> Unit) {
+class ImageLoaderUtil private constructor(private val imageLoadStrategy: (Context, Any, Int?, Int?, ImageView) -> Unit) {
 
-    fun loadImage(context: Context, imageRes: Any, placeholder: Int, error: Int? = null, imageView: ImageView) =
+    fun loadImage(context: Context, imageRes: Any, placeholder: Int? = null, error: Int? = null, imageView: ImageView) =
         imageLoadStrategy.invoke(context, imageRes, placeholder, error, imageView)
 
     companion object {
@@ -28,19 +28,19 @@ class ImageLoaderUtil private constructor(private val imageLoadStrategy: (Contex
     }
 }
 
-fun picassoStrategy(context: Context, imageRes: Any, placeholder: Int, error: Int? = null, imageView: ImageView) {
+fun picassoStrategy(context: Context, imageRes: Any, placeholder: Int?, error: Int?, imageView: ImageView) {
     when (imageRes) {
         is String -> {
-            Picasso.get().load(imageRes).placeholder(placeholder).error(error ?: R.drawable.ic_wait).into(imageView)
+            Picasso.get().load(imageRes).placeholder(placeholder ?: R.drawable.ic_wait).error(error ?: R.drawable.ic_wait).into(imageView)
         }
         is Int -> {
-            Picasso.get().load(imageRes).placeholder(placeholder).error(error ?: R.drawable.ic_wait).into(imageView)
+            Picasso.get().load(imageRes).placeholder(placeholder ?: R.drawable.ic_wait).error(error ?: R.drawable.ic_wait).into(imageView)
         }
         is File -> {
-            Picasso.get().load(imageRes).placeholder(placeholder).error(error ?: R.drawable.ic_wait).into(imageView)
+            Picasso.get().load(imageRes).placeholder(placeholder ?: R.drawable.ic_wait).error(error ?: R.drawable.ic_wait).into(imageView)
         }
         is Uri -> {
-            Picasso.get().load(imageRes).placeholder(placeholder).error(error ?: R.drawable.ic_wait).into(imageView)
+            Picasso.get().load(imageRes).placeholder(placeholder ?: R.drawable.ic_wait).error(error ?: R.drawable.ic_wait).into(imageView)
         }
         else -> {
 
@@ -48,8 +48,8 @@ fun picassoStrategy(context: Context, imageRes: Any, placeholder: Int, error: In
     }
 }
 
-fun glideStrategy(context: Context, imageRes: Any, placeholder: Int, error: Int? = null, imageView: ImageView) {
-    Glide.with(context).load(imageRes).placeholder(placeholder).error(error ?: R.drawable.ic_wait).into(imageView)
+fun glideStrategy(context: Context, imageRes: Any, placeholder: Int?, error: Int?, imageView: ImageView) {
+    Glide.with(context).load(imageRes).placeholder(placeholder ?: R.drawable.ic_wait).error(error ?: R.drawable.ic_wait).into(imageView)
 //    when(imageRes){
 //        is String -> {
 //            Glide.with(context).load(imageRes).placeholder(placeholder).error(error ?: R.drawable.ic_wait).into(imageView)
@@ -75,7 +75,7 @@ fun glideStrategy(context: Context, imageRes: Any, placeholder: Int, error: Int?
 //    }
 }
 
-fun coilStrategy(context: Context, imageRes: Any, placeholder: Int, error: Int? = null, imageView: ImageView) {
+fun coilStrategy(context: Context, imageRes: Any, placeholder: Int?, error: Int?, imageView: ImageView) {
     val imageLoader = ImageLoader.Builder(context)
         .components {
             if (Build.VERSION.SDK_INT >= 28) {
@@ -92,7 +92,7 @@ fun coilStrategy(context: Context, imageRes: Any, placeholder: Int, error: Int? 
         .data(imageRes)
         .crossfade(true)
         .crossfade(1000)
-        .placeholder(placeholder)
+        .placeholder(placeholder ?: R.drawable.ic_wait)
         .error(error ?: R.drawable.ic_wait)
         .target(imageView)
         .transformations(RoundedCornersTransformation(8F, 8f, 8f, 8f))
