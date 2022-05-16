@@ -23,7 +23,7 @@ class MediaSelectActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             MediaSelectUtil.select(
-                activity = this@MediaSelectActivity,
+                this@MediaSelectActivity,
                 selectMimeType = SelectMimeType.ofImage(),
                 selectionMode = SelectModeConfig.SINGLE,
                 maxSelectNum = 1,
@@ -37,20 +37,20 @@ class MediaSelectActivity : AppCompatActivity() {
             if (!result.isNullOrEmpty()) {
                 val stringBuffer = StringBuffer()
                 result.forEach { media ->
-                    stringBuffer.append("文件名: " + media.getFileName()).append("\n")
-                    stringBuffer.append("是否压缩:" + media.isCompressed()).append("\n")
-                    stringBuffer.append("压缩:" + media.getCompressPath()).append("\n")
-                    stringBuffer.append("初始路径:" + media.getPath()).append("\n")
-                    stringBuffer.append("绝对路径:" + media.getRealPath()).append("\n")
-                    stringBuffer.append("是否裁剪:" + media.isCut()).append("\n")
-                    stringBuffer.append("是否开启原图:" + media.isOriginal()).append("\n")
-                    stringBuffer.append("原图路径:" + media.getOriginalPath()).append("\n")
-                    stringBuffer.append("沙盒路径:" + media.getSandboxPath()).append("\n")
-                    stringBuffer.append("水印路径:" + media.getWatermarkPath()).append("\n")
-                    stringBuffer.append("视频缩略图:" + media.getVideoThumbnailPath()).append("\n")
-                    stringBuffer.append("原始宽高: " + media.getWidth() + "x" + media.getHeight()).append("\n")
-                    stringBuffer.append("裁剪宽高: " + media.getCropImageWidth() + "x" + media.getCropImageHeight()).append("\n")
-                    stringBuffer.append("文件大小: " + media.getSize()).append("\n")
+                    stringBuffer.append("文件名: " + media.fileName).append("\n")
+                    stringBuffer.append("是否压缩:" + media.isCompressed).append("\n")
+                    stringBuffer.append("压缩:" + media.compressPath).append("\n")
+                    stringBuffer.append("初始路径:" + media.path).append("\n")
+                    stringBuffer.append("绝对路径:" + media.realPath).append("\n")
+                    stringBuffer.append("是否裁剪:" + media.isCut).append("\n")
+                    stringBuffer.append("是否开启原图:" + media.isOriginal).append("\n")
+                    stringBuffer.append("原图路径:" + media.originalPath).append("\n")
+                    stringBuffer.append("沙盒路径:" + media.sandboxPath).append("\n")
+                    stringBuffer.append("水印路径:" + media.watermarkPath).append("\n")
+                    stringBuffer.append("视频缩略图:" + media.videoThumbnailPath).append("\n")
+                    stringBuffer.append("原始宽高: " + media.width + "x" + media.height).append("\n")
+                    stringBuffer.append("裁剪宽高: " + media.cropImageWidth + "x" + media.cropImageHeight).append("\n")
+                    stringBuffer.append("文件大小: " + media.size).append("\n")
                 }
                 binding.textView.text = stringBuffer.toString()
             }
