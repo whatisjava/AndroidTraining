@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.whatisjava.training.R
+import com.whatisjava.training.databinding.FragmentViewModelLeftBinding
 
 class LeftViewModelFragment : Fragment() {
 
@@ -17,23 +18,30 @@ class LeftViewModelFragment : Fragment() {
 //        ViewModelProvider(this).get(MyViewModel::class.java)
 //    }
 
+    private var _binding: FragmentViewModelLeftBinding? = null
+    private val binding get() = _binding!!
+
     private val leftViewModel by activityViewModels<MyViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_view_model_left, container, false)
+        _binding = FragmentViewModelLeftBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView = view.findViewById<TextView>(R.id.text_view)
-
         leftViewModel.getTestNum().observe(viewLifecycleOwner) {
-            textView.text = "item: $it"
+            binding.textView.text = "item: $it"
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

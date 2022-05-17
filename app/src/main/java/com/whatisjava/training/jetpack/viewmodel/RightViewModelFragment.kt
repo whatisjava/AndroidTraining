@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.whatisjava.training.R
+import com.whatisjava.training.databinding.FragmentViewModelLeftBinding
+import com.whatisjava.training.databinding.FragmentViewModelRightBinding
 
 class RightViewModelFragment : Fragment() {
 
@@ -16,23 +18,30 @@ class RightViewModelFragment : Fragment() {
 //        ViewModelProvider(this).get(MyViewModel::class.java)
 //    }
 
+    private var _binding: FragmentViewModelRightBinding? = null
+    private val binding get() = _binding!!
+
     private val rightViewModel by activityViewModels<MyViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_view_model_right, container, false)
+        _binding = FragmentViewModelRightBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView = view.findViewById<TextView>(R.id.text_view)
-
         rightViewModel.getTestNum().observe(viewLifecycleOwner) {
-            textView.text = "item: $it"
+            binding.textView.text = "item: $it"
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
