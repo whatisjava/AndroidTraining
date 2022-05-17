@@ -8,6 +8,9 @@ import com.whatisjava.training.animation.DynamicAnimationActivity
 import com.whatisjava.training.databinding.ActivityMainBinding
 import com.whatisjava.training.http.HttpActivity
 import com.whatisjava.training.imageloader.ImageLoadActivity
+import com.whatisjava.training.jetpack.lifecycle.LifeCycleActivity
+import com.whatisjava.training.jetpack.livedata.LiveDataActivity
+import com.whatisjava.training.jetpack.viewmodel.ViewModelActivity
 import com.whatisjava.training.mediaselect.MediaSelectActivity
 import com.whatisjava.training.palette.PaletteActivity
 import com.whatisjava.training.printer.PrinterActivity
@@ -34,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         "字重设置",
         "Jetpack Room",
         "多媒体选择",
+        "LifeCycle",
+        "LiveData",
+        "ViewModel",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,6 +88,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 10 -> {
                     startActivity(Intent(this@MainActivity, MediaSelectActivity::class.java))
+                }
+                11 -> {
+                    startActivity(Intent(this@MainActivity, LifeCycleActivity::class.java))
+                }
+                12 -> {
+                    startActivity(Intent(this@MainActivity, LiveDataActivity::class.java))
+                }
+                13 -> {
+                    startActivity(Intent(this@MainActivity, ViewModelActivity::class.java))
                 }
                 else -> {
 

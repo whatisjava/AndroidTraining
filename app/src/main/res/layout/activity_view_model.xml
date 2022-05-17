@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".jetpack.viewmodel.ViewModelActivity">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+1" />
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.whatisjava.training.jetpack.viewmodel.LeftViewModelFragment"
+            android:tag="com.whatisjava.training.jetpack.viewmodel.LeftViewModelFragment"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1.0"/>
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            class="com.whatisjava.training.jetpack.viewmodel.RightViewModelFragment"
+            android:tag="com.whatisjava.training.jetpack.viewmodel.RightViewModelFragment"
+            android:layout_weight="1.0" />
+
+    </LinearLayout>
+
+</LinearLayout>
