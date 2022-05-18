@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface GithubApi {
 
     @GET("search/repositories?sort=stars&q=Android")
-    fun getGithubServerData(@Query("page") page: Int, @Query("per_page") perPage: Int): RepoResponse
+    suspend fun getGithubServerData(@Query("page") page: Int, @Query("per_page") perPage: Int): RepoResponse
 
     companion object {
         private const val BASE_URL = "https://api.github.com/"
