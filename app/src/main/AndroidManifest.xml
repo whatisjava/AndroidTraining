@@ -49,6 +49,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".jetpack.paging.Paging3Activity"
+            android:exported="false" />
+        <activity
             android:name=".jetpack.navigation.NavigationActivity"
             android:exported="false" />
         <activity

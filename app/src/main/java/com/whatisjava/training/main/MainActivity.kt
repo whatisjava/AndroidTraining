@@ -12,6 +12,7 @@ import com.whatisjava.training.jetpack.databinding.DataBindingActivity
 import com.whatisjava.training.jetpack.lifecycle.LifeCycleActivity
 import com.whatisjava.training.jetpack.livedata.LiveDataActivity
 import com.whatisjava.training.jetpack.navigation.NavigationActivity
+import com.whatisjava.training.jetpack.paging.Paging3Activity
 import com.whatisjava.training.jetpack.viewmodel.ViewModelActivity
 import com.whatisjava.training.mediaselect.MediaSelectActivity
 import com.whatisjava.training.palette.PaletteActivity
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         "ViewModel",
         "DataBinding",
         "Navigation",
+        "Paging3",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,6 +109,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 15 -> {
                     startActivity(Intent(this@MainActivity, NavigationActivity::class.java))
+                }
+                16 -> {
+                    startActivity(Intent(this@MainActivity, Paging3Activity::class.java))
                 }
                 else -> {
 
