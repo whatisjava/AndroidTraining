@@ -8,6 +8,7 @@ import com.whatisjava.training.animation.DynamicAnimationActivity
 import com.whatisjava.training.databinding.ActivityMainBinding
 import com.whatisjava.training.http.HttpActivity
 import com.whatisjava.training.imageloader.ImageLoadActivity
+import com.whatisjava.training.jetpack.databinding.DataBindingActivity
 import com.whatisjava.training.jetpack.lifecycle.LifeCycleActivity
 import com.whatisjava.training.jetpack.livedata.LiveDataActivity
 import com.whatisjava.training.jetpack.viewmodel.ViewModelActivity
@@ -15,7 +16,7 @@ import com.whatisjava.training.mediaselect.MediaSelectActivity
 import com.whatisjava.training.palette.PaletteActivity
 import com.whatisjava.training.printer.PrinterActivity
 import com.whatisjava.training.recyclerview.GridLayoutActivity
-import com.whatisjava.training.room.RoomActivity
+import com.whatisjava.training.jetpack.room.RoomActivity
 import com.whatisjava.training.storage.FileStorageActivity
 import com.whatisjava.training.textview.TextViewActivity
 import com.whatisjava.training.translucent.TranslucentActivity
@@ -35,11 +36,12 @@ class MainActivity : AppCompatActivity() {
         "文件存储",
         "Retrofit+LiveData",
         "字重设置",
-        "Jetpack Room",
+        "Room",
         "多媒体选择",
         "LifeCycle",
         "LiveData",
         "ViewModel",
+        "DataBinding",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +99,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 13 -> {
                     startActivity(Intent(this@MainActivity, ViewModelActivity::class.java))
+                }
+                14 -> {
+                    startActivity(Intent(this@MainActivity, DataBindingActivity::class.java))
                 }
                 else -> {
 
