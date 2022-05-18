@@ -11,6 +11,7 @@ import com.whatisjava.training.imageloader.ImageLoadActivity
 import com.whatisjava.training.jetpack.databinding.DataBindingActivity
 import com.whatisjava.training.jetpack.lifecycle.LifeCycleActivity
 import com.whatisjava.training.jetpack.livedata.LiveDataActivity
+import com.whatisjava.training.jetpack.navigation.NavigationActivity
 import com.whatisjava.training.jetpack.viewmodel.ViewModelActivity
 import com.whatisjava.training.mediaselect.MediaSelectActivity
 import com.whatisjava.training.palette.PaletteActivity
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         "LiveData",
         "ViewModel",
         "DataBinding",
+        "Navigation",
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,6 +104,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 14 -> {
                     startActivity(Intent(this@MainActivity, DataBindingActivity::class.java))
+                }
+                15 -> {
+                    startActivity(Intent(this@MainActivity, NavigationActivity::class.java))
                 }
                 else -> {
 

@@ -49,6 +49,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".jetpack.navigation.NavigationActivity"
+            android:exported="false" />
+        <activity
             android:name=".jetpack.databinding.DataBindingActivity"
             android:exported="false" />
         <activity
@@ -64,7 +67,7 @@
             android:name=".mediaselect.MediaSelectActivity"
             android:exported="false" />
         <activity
-            android:name="com.whatisjava.training.jetpack.room.RoomActivity"
+            android:name=".room.RoomActivity"
             android:exported="false" />
         <activity
             android:name=".textview.TextViewActivity"
