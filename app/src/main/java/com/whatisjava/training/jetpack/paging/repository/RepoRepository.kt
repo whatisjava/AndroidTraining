@@ -10,13 +10,18 @@ import kotlinx.coroutines.flow.Flow
 
 object RepoRepository {
 
-    private const val PAGE_SIZE = 20
+    private const val PAGE_SIZE = 10
 
     private val githubApi = GithubApi.create()
 
     fun getPagingData(): Flow<PagingData<Item>> {
         return Pager(
-            config = PagingConfig(PAGE_SIZE, initialLoadSize = PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = 3,
+                initialLoadSize = PAGE_SIZE,
+
+            ),
             pagingSourceFactory = { RepoPagingSource(githubApi) }
         ).flow
     }
